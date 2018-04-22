@@ -1,13 +1,15 @@
 <%= form_for(@email) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
-    <%= text_field(:recepients, :to, :required => true) %>
+  <div class="form-group">
+    <label for="to">Email address seperated by comma</label>
+    <%= text_field(:recepients, :to, required: true, placeholder: "a@b.c,d@e.f...", class: "form-control") %>
   </div>
-  <div class="field">
-    <%= f.text_field :subject, placeholder: "Subject" %>
+  <div class="form-group">
+    <%= f.text_field :subject, placeholder: "Subject", class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.text_area :body, placeholder: "Body" %>
+  <div class="form-group">
+    <%= f.text_area :body, placeholder: "Body", class: "form-control" %>
   </div>
   <%= f.submit "Send", class: "btn btn-primary" %>
 <% end %>
+

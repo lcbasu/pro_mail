@@ -1,6 +1,10 @@
 class EmailsController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
 
+  def show
+    @email = Email.find(params[:id])
+  end
+
   def create
     logger.debug "params: #{params}"
     subject = params[:email][:subject]

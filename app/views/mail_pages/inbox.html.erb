@@ -13,7 +13,7 @@
       <tbody>
         <% if @all_received.present? %>
           <% @all_received.each do |received| %>
-            <tr>
+            <tr data-link="<%= email_path(received.email) %>" style="cursor: pointer;">
               <td><%= User.find_by(id: received.sender_user_id).email %></td>
               <td><%= received.email.subject %></td>
               <td>Received <%= time_ago_in_words(received.created_at) %> ago.</td>
