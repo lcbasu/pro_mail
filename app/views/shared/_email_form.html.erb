@@ -1,0 +1,13 @@
+<%= form_for(@email) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="field">
+    <%= text_field(:recepients, :to, :required => true) %>
+  </div>
+  <div class="field">
+    <%= f.text_field :subject, placeholder: "Subject" %>
+  </div>
+  <div class="field">
+    <%= f.text_area :body, placeholder: "Body" %>
+  </div>
+  <%= f.submit "Send", class: "btn btn-primary" %>
+<% end %>

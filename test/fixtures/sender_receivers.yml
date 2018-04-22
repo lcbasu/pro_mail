@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sender_user_id: 1
+  receiver_user_id: 1
+  is_opened: false
+  is_deleted_by_sender: false
+  is_deleted_by_receiver: false
+  email: one
+
+two:
+  sender_user_id: 1
+  receiver_user_id: 1
+  is_opened: false
+  is_deleted_by_sender: false
+  is_deleted_by_receiver: false
+  email: two
