@@ -3,7 +3,7 @@ class MailPagesController < ApplicationController
     if !logged_in?
       redirect_to login_url
     else
-      @all_received = SenderReceiver.where(receiver_user_id: current_user.id)
+      @all_received = SenderReceiver.where("receiver_user_id = ? AND is_deleted_by_receiver = ?", current_user.id, false)
     end
   end
 
@@ -11,7 +11,7 @@ class MailPagesController < ApplicationController
     if !logged_in?
       redirect_to login_url
     else
-      @all_sent = SenderReceiver.where(sender_user_id: current_user.id)
+      @all_sent = SenderReceiver.where("sender_user_id = ? AND is_deleted_by_sender = ?", current_user.id, false)
     end
   end
 
