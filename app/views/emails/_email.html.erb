@@ -1,0 +1,8 @@
+<li id="email-<%= email.id %>"> 
+  <span class="user"><%= email.user.email %></span> 
+  <span class="subject"><%= email.subject %></span> 
+  <span class="body"><%= email.body %></span> 
+  <span class="timestamp"> 
+    Sent <%= time_ago_in_words(email.created_at) %> ago. 
+  </span> 
+</li>

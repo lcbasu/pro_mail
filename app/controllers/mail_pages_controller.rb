@@ -3,8 +3,7 @@ class MailPagesController < ApplicationController
     if !logged_in?
       redirect_to login_url
     else
-      @user = current_user
-      @emails = @user.emails.paginate(page: params[:page])
+      @all_received = SenderReceiver.where(receiver_user_id: current_user.id)
     end
   end
 
