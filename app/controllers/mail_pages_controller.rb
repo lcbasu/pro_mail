@@ -10,6 +10,8 @@ class MailPagesController < ApplicationController
   def sent
     if !logged_in?
       redirect_to login_url
+    else
+      @all_sent = SenderReceiver.where(sender_user_id: current_user.id)
     end
   end
 

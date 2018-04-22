@@ -1,9 +1,31 @@
 <% provide(:title, "Sent") %>
-<div class="center jumbotron">
-  <h1>Pro Mail Sent</h1>
-
-  <h2>
-    Pro Mail
-  </h2>
-
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">To</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @all_sent.present? %>
+          <% @all_sent.each do |sent| %>
+            <tr data-link="<%= email_path(sent.email) %>" style="cursor: pointer;">
+              <td><%= User.find_by(id: sent.receiver_user_id).email %></td>
+              <td><%= sent.email.subject %></td>
+              <td>sent <%= time_ago_in_words(sent.created_at) %> ago.</td>
+              <td><a class="btn btn-success btn-sm" href="<%= email_path(sent.email) %>" role="button">View</a></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-2"></div>
 </div>
+
+
+
