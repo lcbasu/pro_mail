@@ -17,6 +17,7 @@
               <td><%= User.find_by(id: received.sender_user_id).email %></td>
               <td><%= received.email.subject %></td>
               <td>Received <%= time_ago_in_words(received.created_at) %> ago.</td>
+              <td><a class="btn btn-success btn-sm" href="<%= email_path(received.email) %>" role="button">View</a></td>
             </tr>
           <% end %>
         <% end %>
