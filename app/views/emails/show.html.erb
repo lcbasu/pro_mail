@@ -3,6 +3,6 @@
   <p class="lead"><%= time_ago_in_words(@email.created_at) %></p>
   <hr class="my-4">
   <p><%= @email.body %></p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Reply</a>
+  <a class="btn btn-primary btn-lg" href="<%= reply_path(@email) %>" role="button">Reply</a>
   <a class="btn btn-primary btn-lg" href="#" role="button">Forward</a>
 </div>

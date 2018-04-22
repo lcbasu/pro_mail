@@ -29,6 +29,9 @@ class MailPagesController < ApplicationController
     if !logged_in?
       redirect_to login_url
     else
+      @to_value = ""
+      @sub_value = ""
+      @body_value = ""
       @email = current_user.emails.build if logged_in?
     end
   end

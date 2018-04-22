@@ -2,13 +2,13 @@
   <%= render 'shared/error_messages', object: f.object %>
   <div class="form-group">
     <label for="to">Email address seperated by comma</label>
-    <%= text_field(:recepients, :to, required: true, placeholder: "a@b.c,d@e.f...", class: "form-control") %>
+    <%= text_field(:recepients, :to, required: true, placeholder: "a@b.c,d@e.f...", class: "form-control", :value => @to_value) %>
   </div>
   <div class="form-group">
-    <%= f.text_field :subject, placeholder: "Subject", class: "form-control" %>
+    <%= f.text_field :subject, placeholder: "Subject", class: "form-control", :value => @sub_value %>
   </div>
   <div class="form-group">
-    <%= f.text_area :body, placeholder: "Body", class: "form-control" %>
+    <%= f.text_area :body, placeholder: "Body", class: "form-control", :value => @body_value %>
   </div>
   <%= f.submit "Send", class: "btn btn-primary" %>
 <% end %>

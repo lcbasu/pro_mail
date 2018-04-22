@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   get  '/draft', to: 'mail_pages#draft'
   get  '/trash', to: 'mail_pages#trash'
   get  '/compose', to: 'mail_pages#compose'
+  
+  get  '/reply', to: 'emails#reply'
 
 
   get    '/login',   to: 'sessions#new'
