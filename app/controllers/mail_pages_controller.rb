@@ -11,7 +11,7 @@ class MailPagesController < ApplicationController
     if !logged_in?
       redirect_to login_url
     else
-      @all_sent = SenderReceiver.where("sender_user_id = ? AND is_deleted_by_sender = ?", current_user.id, false)
+      @all_sent_emails = current_user.emails
     end
   end
 

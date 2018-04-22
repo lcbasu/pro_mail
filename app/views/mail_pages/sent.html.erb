@@ -11,14 +11,20 @@
         </tr>
       </thead>
       <tbody>
-        <% if @all_sent.present? %>
-          <% @all_sent.each do |sent| %>
-            <tr data-link="<%= email_path(sent.email) %>" style="cursor: pointer;">
-              <td><%= User.find_by(id: sent.receiver_user_id).email %></td>
-              <td><%= sent.email.subject %></td>
-              <td>sent <%= time_ago_in_words(sent.created_at) %> ago.</td>
-              <td><a class="btn btn-success btn-sm" href="<%= email_path(sent.email) %>" role="button">View</a></td>
-            </tr>
+        <% if @all_sent_emails.present? %>
+          <% @all_sent_emails.each do |sent_email| %>
+            <% if !sent_email.sender_receivers.first.is_deleted_by_sender %>
+              <tr data-link="<%= email_path(sent_email) %>" style="cursor: pointer;">
+                <td>
+                  <% sent_email.sender_receivers.each do |sr| %>
+                    <%= User.find(sr.receiver_user_id).email %>,
+                  <% end %>
+                </td>
+                <td><%= sent_email.subject %></td>
+                <td>sent <%= time_ago_in_words(sent_email.created_at) %> ago.</td>
+                <td><a class="btn btn-success btn-sm" href="<%= email_path(sent_email) %>" role="button">View</a></td>
+              </tr>
+            <% end %>
           <% end %>
         <% end %>
       </tbody>
