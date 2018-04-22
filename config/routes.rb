@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get  '/compose', to: 'mail_pages#compose'
   
   get  '/reply', to: 'emails#reply'
+  get  '/forward', to: 'emails#forward'
 
 
   get    '/login',   to: 'sessions#new'

@@ -31,6 +31,17 @@ class EmailsController < ApplicationController
 
   end
 
+  def forward
+    reference_email = Email.find(params[:format])
+
+    @to_value = ""
+    @sub_value = reference_email.subject
+    @body_value = reference_email.body
+
+    @email = current_user.emails.build
+
+  end
+
   def create
     logger.debug "params: #{params}"
     subject = params[:email][:subject]
