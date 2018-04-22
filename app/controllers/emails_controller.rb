@@ -7,21 +7,23 @@ class EmailsController < ApplicationController
 
   def reply
     reference_email = Email.find(params[:format])
-    @all_receiver_id = Array.new
+    # @all_receiver_id = Array.new
 
-    #count = 0
-    for single in reference_email.sender_receivers
-      @all_receiver_id.push(single.receiver_user_id)
-    end
+    # #count = 0
+    # for single in reference_email.sender_receivers
+    #   @all_receiver_id.push(single.receiver_user_id)
+    # end
 
+    # @to_value = ""
+
+    # for user_id in @all_receiver_id
+    #   user = User.find(user_id)
+    #   logger.debug "user: #{user}"
+    #   logger.debug "user.email: #{user.email}"
+    #   @to_value.concat("#{user.email},")
+    # end
     @to_value = ""
-
-    for user_id in @all_receiver_id
-      user = User.find(user_id)
-      logger.debug "user: #{user}"
-      logger.debug "user.email: #{user.email}"
-      @to_value.concat("#{user.email},")
-    end
+    @to_value.concat("#{reference_email.user.email},")
     @sub_value = reference_email.subject
     @body_value = reference_email.body
 
