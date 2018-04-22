@@ -5,4 +5,5 @@
   <p><%= @email.body %></p>
   <a class="btn btn-primary btn-lg" href="<%= reply_path(@email) %>" role="button">Reply</a>
   <a class="btn btn-primary btn-lg" href="<%= forward_path(@email) %>" role="button">Forward</a>
+  <a class="btn btn-danger btn-lg" href="<%= delete_path(@email) %>" role="button">Delete</a>
 </div>

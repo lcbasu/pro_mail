@@ -39,7 +39,28 @@ class EmailsController < ApplicationController
     @body_value = reference_email.body
 
     @email = current_user.emails.build
+  end
 
+  def delete_mail
+    reference_email = Email.find(params[:format])
+
+    is_sender_deleting_the_mail = false
+
+    if reference_email.user.id == current_user.id
+      is_sender_deleting_the_mail = true
+    end
+
+    if is_sender_deleting_the_mail
+      for sr in reference_email.sender_receivers
+        sr.update_attributes(is_deleted_by_sender: true)
+      end
+    else
+      for sr in reference_email.sender_receivers
+        sr.update_attributes(is_deleted_by_receiver: true)
+      end
+    end
+
+    redirect_to trash_url
   end
 
   def create

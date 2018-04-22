@@ -1,9 +1,27 @@
 <% provide(:title, "Trash") %>
-<div class="center jumbotron">
-  <h1>Pro Mail Trash</h1>
-
-  <h2>
-    Pro Mail
-  </h2>
-
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">From</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @all_deleted_email.present? %>
+          <% @all_deleted_email.each do |deleted_email| %>
+            <tr>
+              <td><%= deleted_email.user.email %></td>
+              <td><%= deleted_email.subject %></td>
+              <td>Sent <%= time_ago_in_words(deleted_email.created_at) %> ago.</td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-2"></div>
 </div>

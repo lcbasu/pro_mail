@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   
   get  '/reply', to: 'emails#reply'
   get  '/forward', to: 'emails#forward'
+  get  '/delete', to: 'emails#delete_mail'
 
 
   get    '/login',   to: 'sessions#new'

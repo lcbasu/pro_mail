@@ -24,6 +24,26 @@ class MailPagesController < ApplicationController
   def trash
     if !logged_in?
       redirect_to login_url
+    else
+      @all_deleted = SenderReceiver.where("(receiver_user_id = ? AND is_deleted_by_receiver = ?) OR (sender_user_id = ? AND is_deleted_by_sender = ?)", current_user.id, true, current_user.id, true)
+      email_ids = Array.new
+      for del in @all_deleted
+        email_ids.push(del.email.id)
+      end
+
+      unique_email_ids = Set.new
+      for id in email_ids do
+        logger.debug "QQQQQ"
+        unique_email_ids.add(id)
+      end
+
+      id_array = Array.new
+      for id in unique_email_ids do
+        id_array.push(id)
+      end
+
+      @all_deleted_email = Email.where(id: id_array)
+
     end
   end
 
