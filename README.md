@@ -1,24 +1,10 @@
-# README
+# Pro Mail
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## To run
 
-Things you may want to cover:
+1. bundle install
+2. rails server
+3. rails db:migrate:reset : To reset the database
+4. rails db:seed : To fill the database with 10 dummy users (Check db/seed.rb file)
+5. Open http://localhost:3000/ in your browser
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
