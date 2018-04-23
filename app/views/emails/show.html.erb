@@ -1,9 +1,26 @@
 <div class="jumbotron">
-  <h1 class="display-4"><%= @email.subject %></h1>
-  <p class="lead"><%= time_ago_in_words(@email.created_at) %></p>
+  <p class="lead">Subject: <%= @email.subject %></p>
+  <p>Sent on <%= @email.created_at.strftime("%A, %d %B %Y, at %I:%M %p ").to_s %></p>
   <hr class="my-4">
   <p><%= @email.body %></p>
-  <a class="btn btn-primary btn-lg" href="<%= reply_path(@email) %>" role="button">Reply</a>
-  <a class="btn btn-primary btn-lg" href="<%= forward_path(@email) %>" role="button">Forward</a>
-  <a class="btn btn-danger btn-lg" href="<%= delete_path(@email) %>" role="button">Delete</a>
+  <br><br>
+  <% if @email.source_email_id != -1 %>
+    <% current_email_id = @email.source_email_id %>
+    <% while current_email_id > 0 do %>
+      <div class="card">
+        <div class="card-header">
+          On <%= Email.find(current_email_id).created_at.strftime("%A, %d %B %Y, at %I:%M %p ").to_s %>, <%= Email.find(current_email_id).user.email %> wrote:
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <footer class="blockquote-footer"><%= Email.find(current_email_id).body %></cite></footer>
+          </blockquote>
+        </div>
+      </div>
+      <% current_email_id = Email.find(current_email_id).source_email_id %>
+    <% end %>
+  <% end %>
 </div>
+<a class="btn btn-primary btn-lg" href="<%= reply_path(@email) %>" role="button">Reply</a>
+<a class="btn btn-primary btn-lg" href="<%= forward_path(@email) %>" role="button">Forward</a>
+<a class="btn btn-danger btn-lg" href="<%= delete_path(@email) %>" role="button">Delete</a>

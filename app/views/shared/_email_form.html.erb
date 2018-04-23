@@ -1,5 +1,7 @@
 <%= form_for(@email) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+  <%= f.hidden_field :source_email_id, :value => @source_email_id %>
+  <%= f.hidden_field :draft_email_id, :value => @draft_email_id %>
   <div class="form-group">
     <label for="to">Email address seperated by comma</label>
     <%= text_field(:recepients, :to, required: true, placeholder: "a@b.c,d@e.f...", class: "form-control", :value => @to_value) %>
@@ -8,8 +10,47 @@
     <%= f.text_field :subject, placeholder: "Subject", class: "form-control", :value => @sub_value %>
   </div>
   <div class="form-group">
-    <%= f.text_area :body, placeholder: "Body", class: "form-control", :value => @body_value %>
+    <%= f.text_area :body, placeholder: @placeholder_text, class: "form-control", :value => @body_value %>
   </div>
+
+  <% source_id_for_draft = -1 %>
+  <% if @source_email_id != -1 %>
+    <% source_id_for_draft = @source_email_id %>
+    <% current_email_id = @source_email_id %>
+    <% while current_email_id > 0 do %>
+      <div class="card">
+        <div class="card-header">
+          On <%= Email.find(current_email_id).created_at.strftime("%A, %d %B %Y, at %I:%M %p ").to_s %>, <%= Email.find(current_email_id).user.email %> wrote:
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <footer class="blockquote-footer"><%= Email.find(current_email_id).body %></cite></footer>
+          </blockquote>
+        </div>
+      </div>
+      <% current_email_id = Email.find(current_email_id).source_email_id %>
+    <% end %>
+  <% end %>
   <%= f.submit "Send", class: "btn btn-primary" %>
+  <input class="btn btn-info btn-sm" id="draft" type="button" value="Save as draft" onclick="trigger_save();" />
+  <script type="text/javascript">
+    function trigger_save() {
+      console.log("Save as draft now.")
+
+      to = document.getElementById('recepients_to').value;
+      sub = document.getElementById('email_subject').value;
+      body = document.getElementById('email_body').value;
+      draft_email_id = document.getElementById('email_draft_email_id').value;
+      source_email_id = <%= source_id_for_draft %>
+
+      console.log("to " + to)
+      console.log("sub " + sub)
+      console.log("body " + body)
+      console.log("source_email_id " + source_email_id)
+      console.log("draft_email_id " + draft_email_id)
+
+      window.location.href = '/save?to=' + to + '&sub=' + sub + '&body=' + body + '&source_email_id=' + source_email_id + '&draft_email_id=' + draft_email_id;
+    }
+  </script>
 <% end %>
 

@@ -11,13 +11,15 @@ class MailPagesController < ApplicationController
     if !logged_in?
       redirect_to login_url
     else
-      @all_sent_emails = current_user.emails
+      @all_sent_emails = current_user.emails.where("is_draft = ?", false)
     end
   end
 
   def draft
     if !logged_in?
       redirect_to login_url
+    else
+      @all_draft = current_user.emails.where("is_draft = ?", true)
     end
   end
 
@@ -53,7 +55,10 @@ class MailPagesController < ApplicationController
     else
       @to_value = ""
       @sub_value = ""
+      @placeholder_text = "Write your message here..."
       @body_value = ""
+      @source_email_id = -1
+      @draft_email_id = -1
       @email = current_user.emails.build if logged_in?
     end
   end
